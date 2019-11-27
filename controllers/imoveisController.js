@@ -72,3 +72,28 @@ module.exports.getBairros = async (req,res) => {
         res.status(400);
     }
 }
+
+module.exports.getCasas = async (req,res) => {
+
+    try{
+        mongoose.connect('mongodb+srv://admin:admin@cluster0-nshzt.mongodb.net/imobiliaria?retryWrites=true&w=majority');
+        casas = await Casa.find();
+        res.status(200).json(casas);
+    }
+    catch(error){
+        res.status(400);
+    }
+
+}
+
+module.exports.getApartamentos = async (req,res) => {
+
+    try {
+        mongoose.connect('mongodb+srv://admin:admin@cluster0-nshzt.mongodb.net/imobiliaria?retryWrites=true&w=majority');
+        apartamentos = await Apartamento.find();
+        res.status(200).json(apartamentos);
+    } catch (error) {
+        res.status(400);
+    }
+
+}
