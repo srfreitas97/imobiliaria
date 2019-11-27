@@ -14,4 +14,12 @@ router.post('/insertApartamento',(req,res)=> {
     imoveisController.insertApartamento(req,res);
 });
 
+router.get('/getCasas',(req,res) => {
+    imoveisController.getCasas(req,res);
+});
+
+router.get('/getApartamentos',(req,res) => {
+    imoveisController.getApartamentos(req,res);
+});
+
 module.exports = router;
