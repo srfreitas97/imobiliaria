@@ -8,7 +8,7 @@ module.exports.insertCasa = async (req,res) => {
         mongoose.connect('mongodb+srv://admin:admin@cluster0-nshzt.mongodb.net/imobiliaria?retryWrites=true&w=majority',{ useNewUrlParser: true });
         const casa = new Casa({
             bairro : req.body.bairro,
-            valorAluguel : req.body.aluguel,
+            valorAluguel : req.body.valorAluguel,
             numeroQuartos : req.body.numQuartos,
             numSuites : req.body.numSuites,
             numSalasEstar : req.body.numSalasEstar,
@@ -53,26 +53,22 @@ module.exports.insertApartamento = async (req,res) => {
 
 }
 
-module.exports.getImoveis = async (req,res) => {
+module.exports.getBairros = async (req,res) => {
     try{
 
-        mongoose.connect(
-            'mongodb+srv://admin:admin@cluster0-nshzt.mongodb.net/test?retryWrites=true&w=majority',
-
-            { useNewUrlParser: true },
-
-            function(error){
-                if(error) throw new Error(error.message);
-            }
-        ).catch(error => {
-            throw new Error(error.message);
+        mongoose.connect('mongodb+srv://admin:admin@cluster0-nshzt.mongodb.net/imobiliaria?retryWrites=true&w=majority');
+        casas = await Casa.find().select('bairro');
+        apartamentos = await Apartamento.find().select('bairro');
+        let bairros = [];
+        casas.forEach(element => {
+            bairros.push(element.bairro);
         });
-        res.status(200).json({teste : 'Sucesso'})        
+        apartamentos.forEach(element => {
+            bairros.push(element.bairro);
+        });
+        res.status(200).json(bairros);       
     }
     catch(err){
-        if(err) {
-            console.log(err.message);
-        }
         res.status(400);
     }
 }
